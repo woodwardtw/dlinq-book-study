@@ -50,8 +50,8 @@ function create_expert_cpt() {
     'description' => __( '', 'textdomain' ),
     'labels' => $labels,
     'menu_icon' => '',
-    'supports' => array('title', 'editor', 'revisions', 'author', 'trackbacks', 'custom-fields', 'thumbnail',),
-    'taxonomies' => array('category', 'post_tag'),
+    'supports' => array('title', 'editor', 'revisions', 'author', 'trackbacks', 'custom-fields', 'thumbnail', 'featured-image'),
+    'taxonomies' => array('category', 'post_tag', 'chapter'),
     'public' => true,
     'show_ui' => true,
     'show_in_menu' => true,
@@ -65,7 +65,7 @@ function create_expert_cpt() {
     'show_in_rest' => true,
     'publicly_queryable' => true,
     'capability_type' => 'post',
-    'menu_icon' => 'dashicons-universal-access-alt',
+    'menu_icon' => 'dashicons-admin-users',
   );
   register_post_type( 'expert', $args );
   
@@ -118,7 +118,7 @@ function create_resource_cpt() {
     'labels' => $labels,
     'menu_icon' => '',
     'supports' => array('title', 'editor', 'revisions', 'author', 'trackbacks', 'custom-fields', 'thumbnail',),
-    'taxonomies' => array('category', 'post_tag'),
+    'taxonomies' => array('category', 'post_tag', 'chapter'),
     'public' => true,
     'show_ui' => true,
     'show_in_menu' => true,
@@ -132,7 +132,7 @@ function create_resource_cpt() {
     'show_in_rest' => true,
     'publicly_queryable' => true,
     'capability_type' => 'post',
-    'menu_icon' => 'dashicons-universal-access-alt',
+    'menu_icon' => 'dashicons-admin-links',
   );
   register_post_type( 'resource', $args );
   
@@ -185,7 +185,7 @@ function create_question_cpt() {
     'labels' => $labels,
     'menu_icon' => '',
     'supports' => array('title', 'editor', 'revisions', 'author', 'trackbacks', 'custom-fields', 'thumbnail',),
-    'taxonomies' => array('category', 'post_tag'),
+    'taxonomies' => array('category', 'post_tag', 'chapter'),
     'public' => true,
     'show_ui' => true,
     'show_in_menu' => true,
@@ -199,7 +199,7 @@ function create_question_cpt() {
     'show_in_rest' => true,
     'publicly_queryable' => true,
     'capability_type' => 'post',
-    'menu_icon' => 'dashicons-universal-access-alt',
+    'menu_icon' => 'dashicons-editor-help',
   );
   register_post_type( 'question', $args );
   
@@ -208,3 +208,40 @@ function create_question_cpt() {
   $wp_rewrite->flush_rules();
 }
 add_action( 'init', 'create_question_cpt', 0 );
+
+add_action( 'init', 'create_chapter_taxonomies', 0 );
+function create_chapter_taxonomies()
+{
+  // Add new taxonomy, NOT hierarchical (like tags)
+  $labels = array(
+    'name' => _x( 'Chapter', 'taxonomy general name' ),
+    'singular_name' => _x( 'Chapter', 'taxonomy singular name' ),
+    'search_items' =>  __( 'Search Chapters' ),
+    'popular_items' => __( 'Popular Chapters' ),
+    'all_items' => __( 'All Chapters' ),
+    'parent_item' => null,
+    'parent_item_colon' => null,
+    'edit_item' => __( 'Edit Chapters' ),
+    'update_item' => __( 'Update Chapter' ),
+    'add_new_item' => __( 'Add New Chapter' ),
+    'new_item_name' => __( 'New Chapter' ),
+    'add_or_remove_items' => __( 'Add or remove Chapters' ),
+    'choose_from_most_used' => __( 'Choose from the most used Chapters' ),
+    'menu_name' => __( 'Chapter' ),
+  );
+
+//registers taxonomy specific post types - default is just post
+  register_taxonomy('Chapter', array('post', 'expert', 'resource', 'question'), array(
+    'hierarchical' => true,
+    'labels' => $labels,
+    'show_ui' => true,
+    'update_count_callback' => '_update_post_term_count',
+    'query_var' => true,
+    'rewrite' => array( 'slug' => 'chapter' ),
+    'show_in_rest'          => true,
+    'rest_base'             => 'chapter',
+    'rest_controller_class' => 'WP_REST_Terms_Controller',
+    'show_in_nav_menus' => true,    
+  ));
+}
+
