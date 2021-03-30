@@ -29,6 +29,7 @@ defined( 'ABSPATH' ) || exit;
 		<?php
 			echo chapter_summary();
 			echo chapter_provocation();
+			echo chapter_experts();
 		;?>
 		<?php the_content(); ?>
 

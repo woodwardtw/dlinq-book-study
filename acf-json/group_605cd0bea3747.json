@@ -66,7 +66,7 @@
             ],
             "min": "",
             "max": "",
-            "return_format": "object"
+            "return_format": "id"
         }
     ],
     "location": [
@@ -98,5 +98,5 @@
     ],
     "active": true,
     "description": "",
-    "modified": 1617116371
+    "modified": 1617117330
 }
