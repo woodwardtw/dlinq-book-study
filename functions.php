@@ -44,3 +44,18 @@ if ( class_exists( 'Jetpack' ) ) {
 foreach ( $understrap_includes as $file ) {
 	require_once $understrap_inc_dir . $file;
 }
+
+
+function chapter_summary(){
+	if( get_field('summary')){
+		$summary =  get_field('summary');
+		return "<div class='summary'><h2 id='summary-title'>Summary</h2>{$summary}</div>";
+	}
+}
+
+function chapter_provocation(){
+	if( get_field('provocations')){
+		$provocations =  get_field('provocations');
+		return "<div class='provocations'><h2 id='provocation-title'>Provocations</h2>{$provocations}</div>";
+	}
+}

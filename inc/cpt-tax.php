@@ -209,6 +209,74 @@ function create_question_cpt() {
 }
 add_action( 'init', 'create_question_cpt', 0 );
 
+
+//chapter custom post type
+
+// Register Custom Post Type chapter
+// Post Type Key: chapter
+
+function create_chapter_cpt() {
+
+  $labels = array(
+    'name' => __( 'Chapters', 'Post Type General Name', 'textdomain' ),
+    'singular_name' => __( 'Chapter', 'Post Type Singular Name', 'textdomain' ),
+    'menu_name' => __( 'Chapter', 'textdomain' ),
+    'name_admin_bar' => __( 'Chapter', 'textdomain' ),
+    'archives' => __( 'Chapter Archives', 'textdomain' ),
+    'attributes' => __( 'Chapter Attributes', 'textdomain' ),
+    'parent_item_colon' => __( 'Chapter:', 'textdomain' ),
+    'all_items' => __( 'All Chapters', 'textdomain' ),
+    'add_new_item' => __( 'Add New Chapter', 'textdomain' ),
+    'add_new' => __( 'Add New', 'textdomain' ),
+    'new_item' => __( 'New Chapter', 'textdomain' ),
+    'edit_item' => __( 'Edit Chapter', 'textdomain' ),
+    'update_item' => __( 'Update Chapter', 'textdomain' ),
+    'view_item' => __( 'View Chapter', 'textdomain' ),
+    'view_items' => __( 'View Chapters', 'textdomain' ),
+    'search_items' => __( 'Search Chapters', 'textdomain' ),
+    'not_found' => __( 'Not found', 'textdomain' ),
+    'not_found_in_trash' => __( 'Not found in Trash', 'textdomain' ),
+    'featured_image' => __( 'Featured Image', 'textdomain' ),
+    'set_featured_image' => __( 'Set featured image', 'textdomain' ),
+    'remove_featured_image' => __( 'Remove featured image', 'textdomain' ),
+    'use_featured_image' => __( 'Use as featured image', 'textdomain' ),
+    'insert_into_item' => __( 'Insert into chapter', 'textdomain' ),
+    'uploaded_to_this_item' => __( 'Uploaded to this chapter', 'textdomain' ),
+    'items_list' => __( 'Chapter list', 'textdomain' ),
+    'items_list_navigation' => __( 'Chapter list navigation', 'textdomain' ),
+    'filter_items_list' => __( 'Filter Chapter list', 'textdomain' ),
+  );
+  $args = array(
+    'label' => __( 'chapter', 'textdomain' ),
+    'description' => __( '', 'textdomain' ),
+    'labels' => $labels,
+    'menu_icon' => '',
+    'supports' => array('title', 'editor', 'revisions', 'author', 'trackbacks', 'custom-fields', 'thumbnail',),
+    'taxonomies' => array('category', 'post_tag'),
+    'public' => true,
+    'show_ui' => true,
+    'show_in_menu' => true,
+    'menu_position' => 2,
+    'show_in_admin_bar' => true,
+    'show_in_nav_menus' => true,
+    'can_export' => true,
+    'has_archive' => true,
+    'hierarchical' => false,
+    'exclude_from_search' => false,
+    'show_in_rest' => true,
+    'publicly_queryable' => true,
+    'capability_type' => 'post',
+    'menu_icon' => 'dashicons-book-alt',
+  );
+  register_post_type( 'chapter', $args );
+  
+  // flush rewrite rules because we changed the permalink structure
+  global $wp_rewrite;
+  $wp_rewrite->flush_rules();
+}
+add_action( 'init', 'create_chapter_cpt', 0 );
+
+
 add_action( 'init', 'create_chapter_taxonomies', 0 );
 function create_chapter_taxonomies()
 {
@@ -240,6 +308,43 @@ function create_chapter_taxonomies()
     'rewrite' => array( 'slug' => 'chapter' ),
     'show_in_rest'          => true,
     'rest_base'             => 'chapter',
+    'rest_controller_class' => 'WP_REST_Terms_Controller',
+    'show_in_nav_menus' => true,    
+  ));
+}
+
+
+add_action( 'init', 'create_chapter_themes', 0 );
+function create_chapter_themes()
+{
+  // Add new taxonomy, NOT hierarchical (like tags)
+  $labels = array(
+    'name' => _x( 'Theme', 'taxonomy general name' ),
+    'singular_name' => _x( 'Theme', 'taxonomy singular name' ),
+    'search_items' =>  __( 'Search Themes' ),
+    'popular_items' => __( 'Popular Themes' ),
+    'all_items' => __( 'All Themes' ),
+    'parent_item' => null,
+    'parent_item_colon' => null,
+    'edit_item' => __( 'Edit Themes' ),
+    'update_item' => __( 'Update Theme' ),
+    'add_new_item' => __( 'Add New Theme' ),
+    'new_item_name' => __( 'New Theme' ),
+    'add_or_remove_items' => __( 'Add or remove Themes' ),
+    'choose_from_most_used' => __( 'Choose from the most used Themes' ),
+    'menu_name' => __( 'Theme' ),
+  );
+
+//registers taxonomy specific post types - default is just post
+  register_taxonomy('Theme', array('post', 'expert', 'resource', 'question', 'chapter'), array(
+    'hierarchical' => true,
+    'labels' => $labels,
+    'show_ui' => true,
+    'update_count_callback' => '_update_post_term_count',
+    'query_var' => true,
+    'rewrite' => array( 'slug' => 'theme' ),
+    'show_in_rest'          => true,
+    'rest_base'             => 'theme',
     'rest_controller_class' => 'WP_REST_Terms_Controller',
     'show_in_nav_menus' => true,    
   ));
