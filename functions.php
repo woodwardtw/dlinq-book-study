@@ -60,9 +60,31 @@ function chapter_provocation(){
 	}
 }
 
+//set the expert title to reflect first and last name fields
+function expert_rename ($post_id){
+  $type = get_post_type($post_id);
+  $last = get_field('last_name');
+  $first = get_field('first_name');
 
+  if ($type === 'expert'){
+    remove_action( 'save_post', 'expert_rename' );
+   
+    $my_post = array(
+        'ID'           => $post_id,
+        'post_title'   => $last . ', ' . $first,      
+    );
+
+  // Update the post into the database
+    wp_update_post( $my_post );
+  }
+}
+add_action( 'save_post', 'expert_rename' );
+
+
+
+
+//LIST THE CHAPTERS
 function chapter_lister(){
-
 // WP QUERY LOOP
  $args = array(
       'posts_per_page' => -1,
@@ -83,52 +105,3 @@ function chapter_lister(){
     wp_reset_query();  // Restore global post data stomped by the_post().
    return $html;
 }                    
-
-function chapter_register_widget() {
-	register_widget( 'chapter_widget' );
-	}
-add_action( 'widgets_init', 'chapter_register_widget' );
-class chapter_widget extends WP_Widget {
-	function __construct() {
-		parent::__construct(
-		// widget ID
-		'chapter_widget',
-		// widget name
-		__('Chapter', 'chapter_widget_domain'),
-		// widget description
-		array( 'description' => __( 'Chapter List', 'chapter_widget_domain' ), )
-		);
-	}
-public function widget( $args, $instance ) {
-	$title = apply_filters( 'widget_title', $instance['title'] );
-	echo $args['before_widget'];
-	//if title is present
-	if ( ! empty( $title ) )
-	echo $args['before_title'] . $title . $args['after_title'];
-	//output
-	//echo __( 'Chapters', 'chapter_widget_domain' );
-	echo chapter_lister();
-	echo $args['after_widget'];
-}
-public function form( $instance ) {
-	if ( isset( $instance[ 'title' ] ) )
-		$title = $instance[ 'title' ];
-	else
-		$title = __( 'Chapters', 'chapter_widget_domain' );
-	?>
-	<p>
-	<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label>
-	<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
-	</p>
-	<?php
-	}
-	public function update( $new_instance, $old_instance ) {
-		$instance = array();
-		$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
-	return $instance;
-	}
-}
-
-                  
-
-
