@@ -1,6 +1,6 @@
 <?php
 /**
- * Single chapter partial template
+ * Partial template for content in home page book
  *
  * @package UnderStrap
  */
@@ -13,26 +13,26 @@ defined( 'ABSPATH' ) || exit;
 
 	<header class="entry-header">
 
-		<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
+		<h1 class="entry-title"><?php echo get_field('book_title')
 
-		<div class="entry-meta">
-
-			<?php //understrap_posted_on(); ?>
-
-		</div><!-- .entry-meta -->
+		//the_title( '<h1 class="entry-title">', '</h1>' ); 
+		;?></h1>
 
 	</header><!-- .entry-header -->
 
 	<?php echo get_the_post_thumbnail( $post->ID, 'large' ); ?>
 
 	<div class="entry-content">
-		<?php
-			echo chapter_summary();
-			echo chapter_provocation();
-			echo chapter_experts();
-			echo chapter_resources();
-		;?>
+		<h2>by <?php echo get_field('authors')?></h3>
+		<div class="book-description">
+			<?php echo get_field('excerpt');?>
+		</div>
 		<?php the_content(); ?>
+		<div class="row">
+			<div class="col-md-6 offset-md-3">
+				<?php echo chapter_lister();?>
+			</div>
+		</div>
 
 		<?php
 		wp_link_pages(
@@ -47,7 +47,7 @@ defined( 'ABSPATH' ) || exit;
 
 	<footer class="entry-footer">
 
-		<?php understrap_entry_footer(); ?>
+		<?php edit_post_link( __( 'Edit', 'understrap' ), '<span class="edit-link">', '</span>' ); ?>
 
 	</footer><!-- .entry-footer -->
 

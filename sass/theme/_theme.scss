@@ -95,12 +95,41 @@ h1,h2,h3,h4{
 
 
 /*chapter*/
-.expert-description {
-	font-size: .7em;
+.expert-description, .resource-description {
+	font-size: .6em;
+}
+
+.expert-row {
+	background-color: $light-blue;
+	padding: 30px 0 60px 0;
+}
+
+.resource-row {
+	background-color: $gold;
+	padding: 30px 0 60px 0;
+}
+
+#experts, #resources {
+	text-align: center;
+}
+
+.expert, .resource {
+	padding: 20px 40px;
+}
+
+.expert:nth-of-type(even), .resource:nth-of-type(even){
+	border-right: 1px solid;
+}
+
+/*comments*/
+
+ol.comment-list {
+	margin-left: 0;
+	padding-left: 0;
 }
 
 
-/*comments*/
+
 .comment-author {
 	display: inline-block;
 }
@@ -140,14 +169,35 @@ ol.comment-list  > li::before {
   padding: 5px 20px;
 }
 
-
-
 .comment-list li.comment {
-	padding: 20px 30px;
+	padding: 20px 30px 20px 10px;
 }
+
 
 .comment-list li.comment li{
 	border: none;
 	border-left: 1px solid #efefef;
 	list-style: none;
 }
+
+
+/*nav links*/
+
+.navigation {
+	max-width: 100%;
+	padding: 0;
+}
+
+.nav-previous, .nav-next {
+	height: 100%;
+    display: inline-block;
+    background: #fff;
+    margin: 0;
+    padding: 5px 15px;
+    transition: all .3s;
+}
+
+.nav-previous a:hover, .nav-next a:hover {
+	background-color: $primary;
+	color: #fff;
+} 

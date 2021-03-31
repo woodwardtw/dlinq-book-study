@@ -87,9 +87,9 @@
     "location": [
         [
             {
-                "param": "post_type",
+                "param": "page_template",
                 "operator": "==",
-                "value": "post"
+                "value": "page-templates\/fullwidthpage-home.php"
             }
         ]
     ],
@@ -115,5 +115,5 @@
     ],
     "active": true,
     "description": "",
-    "modified": 1617025954
+    "modified": 1617126287
 }

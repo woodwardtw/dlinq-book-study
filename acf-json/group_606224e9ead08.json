@@ -1,6 +1,6 @@
 {
     "key": "group_606224e9ead08",
-    "title": "Expert",
+    "title": "People",
     "fields": [
         {
             "key": "field_6062250f64934",
@@ -107,5 +107,5 @@
     ],
     "active": true,
     "description": "",
-    "modified": 1617116482
+    "modified": 1617133685
 }

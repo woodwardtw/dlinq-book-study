@@ -31,7 +31,7 @@ function chapter_experts(){
 			$description = chapter_expert_description($expert);
 			$html .= "<div class='expert col-md-6'>{$name}{$description}</div>";
 		}
-		return "<h2>Experts</h2><div class='row'>{$html}</div>";
+		return "<div class='row expert-row'><div class='col-md-12'><h2 id='experts'>Experts</h2></div>{$html}</div>";
 	}
 }
 
@@ -44,7 +44,13 @@ function chapter_expert_name($id){
 	if(get_field('last_name', $id)){
 		$last = get_field('last_name', $id);
 	}
-	return "<h3>{$first} {$last}</h3>";
+	if(get_field('link', $id)){
+		$link = get_field('link', $id);
+		$name = "<a href='{$link}'><h3>{$first} {$last}</h3></a>";
+		return $name;
+	} else {
+		return "<h3>{$first} {$last}</h3>";
+	}
 }
 
 function chapter_expert_description($id){
@@ -55,10 +61,21 @@ function chapter_expert_description($id){
 	}
 }
 
-function chapter_expert_link($id){
-
+function chapter_resources(){
+	$html = '';
+	if(get_field('resources')){
+		$resources = get_field('resources');
+		foreach ($resources as $key => $resource) {
+			# code...
+			$name = get_the_title($resource);
+			$link = get_field('link', $resource);
+			$title = "<a href='{$link}'><h3>{$name}</h3></a>";
+			$description = '<div class="resource-description">' . get_field('description', $resource) . '</div>';
+			$html .= "<div class='resource col-md-6'>{$title}{$description}</div>";
+		}
+		return "<div class='row resource-row'><div class='col-md-12'><h2 id='resources'>Resources</h2></div>{$html}</div>";
+	}
 }
-
 
 //EXPERT SPECIFIC 
 //set the expert title to reflect first and last name fields
