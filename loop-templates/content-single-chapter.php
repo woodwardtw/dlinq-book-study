@@ -33,34 +33,41 @@ defined( 'ABSPATH' ) || exit;
 			echo chapter_resources();
 		;?>
 		<?php the_content(); ?>
-		<div class="row content-creation">
-			<div class="col-md-6">
-				<h2>Add <?php echo book_get_resource_name();?></h2>
-				<?php 
-					$logged = book_get_login_status();
-					if($logged === 'open'){
-						resource_form_creation();
-					} else if ($logged === 'closed' && is_user_logged_in()){
-						resource_form_creation();
-					} else {
-						echo "Please login to add content.";
-					}
-				?>
-			</div>
-			<div class="col-md-6">
-				<h2>Add <?php echo book_get_human_name();?></h2>
-				<?php 
-					$logged = book_get_login_status();
-					if($logged === 'open'){
-						person_form_creation();
-					} else if ($logged === 'closed' && is_user_logged_in()){
-						person_form_creation();
-					} else {
-						echo "Please login to add content.";
-					}
+		<div class="row content-creation accordion" id="addition-forms">
+				<button id="resource-button" class="btn btn-accord col-md-6" type="button" data-toggle="collapse" data-target="#add-resource" aria-expanded="false" aria-controls="collapseExample">
+				   		Add <?php echo book_get_resource_name();?>
+				  </button>
 
+				<button class="btn btn-accord col-md-6" id="people-button" type="button" data-toggle="collapse" data-target="#add-person" aria-expanded="false" aria-controls="collapseExample">
+				   		Add <?php echo book_get_human_name();?>
+				 </button>
+
+				  <div id="add-resource" class="collapse " aria-labelledby="resource-button" data-parent="#addition-forms">
+					<?php 
+						$logged = book_get_login_status();
+						if($logged === 'open'){
+							resource_form_creation();
+						} else if ($logged === 'closed' && is_user_logged_in()){
+							resource_form_creation();
+						} else {
+							echo "Please login to add content.";
+						}
 					?>
-			</div>
+				</div>
+
+				<div id="add-person" class="collapse " aria-labelledby="people-button" data-parent="#addition-forms">
+					<?php 
+						$logged = book_get_login_status();
+						if($logged === 'open'){
+							person_form_creation();
+						} else if ($logged === 'closed' && is_user_logged_in()){
+							person_form_creation();
+						} else {
+							echo "Please login to add content.";
+						}
+
+						?>
+					</div>
 		</div>
 
 		<?php
