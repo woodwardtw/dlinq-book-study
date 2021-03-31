@@ -33,6 +33,41 @@ defined( 'ABSPATH' ) || exit;
 			echo chapter_resources();
 		;?>
 		<?php the_content(); ?>
+		<div class="row content-creation">
+			<div class="col-md-6">
+				<h2>Add Resource</h2>
+				<?php 
+				//RESOURCE FORM
+				acf_form(array(
+					'id' => 'new-resource',
+			        'post_id'       => 'new_post',
+			        'post_title'   => true,
+			        'new_post'      => array(
+			            'post_type'     => 'resource',
+			            'post_status'   => 'publish'
+			        ),
+			        'submit_value'  => 'Create new resource'
+			    ));
+			   
+			    ?>
+			</div>
+			<div class="col-md-6">
+				<h2>Add Expert</h2>
+				<?php 
+				//RESOURCE FORM
+				acf_form(array(
+					'id' => 'new-expert',
+			        'post_id'       => 'new_post',
+			        'new_post'      => array(
+			            'post_type'     => 'expert',
+			            'post_status'   => 'publish'
+			        ),
+			        'submit_value'  => 'Create new expert'
+			    ));
+			   
+			    ?>
+			</div>
+		</div>
 
 		<?php
 		wp_link_pages(

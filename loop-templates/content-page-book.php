@@ -29,7 +29,7 @@ defined( 'ABSPATH' ) || exit;
 		</div>
 		<?php the_content(); ?>
 		<div class="row">
-			<div class="col-md-6 offset-md-3">
+			<div class="col-md-6 offset-md-3 main-chapter-index">
 				<?php echo chapter_lister();?>
 			</div>
 		</div>

@@ -68,3 +68,15 @@ function chapter_lister(){
     wp_reset_query();  // Restore global post data stomped by the_post().
    return $html;
 }                    
+
+//LOGGER -- like frogger but more useful
+
+if ( ! function_exists('write_log')) {
+   function write_log ( $log )  {
+      if ( is_array( $log ) || is_object( $log ) ) {
+         error_log( print_r( $log, true ) );
+      } else {
+         error_log( $log );
+      }
+   }
+}

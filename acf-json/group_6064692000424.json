@@ -1,0 +1,100 @@
+{
+    "key": "group_6064692000424",
+    "title": "Book Settings",
+    "fields": [
+        {
+            "key": "field_60646a11aa1a3",
+            "label": "Summary Title",
+            "name": "summary_title",
+            "type": "text",
+            "instructions": "What would you like to call the first box on the chapter page? \r\n\r\nIf left blank it will default to 'summary.'",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_60646a43846d0",
+            "label": "Provocation Title",
+            "name": "provocation_title",
+            "type": "text",
+            "instructions": "What would you like to call the second box on the chapter page? \r\n\r\nIf left blank it will default to 'provocation.'",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_6064693ab2581",
+            "label": "People Title",
+            "name": "people_title",
+            "type": "text",
+            "instructions": "What would you like to call the people associated with chapters? Examples include practitioners, experts, scholars, activists etc. \r\n\r\nIf left blank it will default to 'experts.'",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_606469863e9c9",
+            "label": "Resources Title",
+            "name": "resources_title",
+            "type": "text",
+            "instructions": "The label you'd like for resources affiliated with links added to the chapter pages. \r\n\r\nIf left blank it defaults to 'resources.'",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "book-settings"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "modified": 1617193604
+}

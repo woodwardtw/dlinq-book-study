@@ -128,8 +128,6 @@ ol.comment-list {
 	padding-left: 0;
 }
 
-
-
 .comment-author {
 	display: inline-block;
 }
@@ -180,6 +178,14 @@ ol.comment-list  > li::before {
 	list-style: none;
 }
 
+/*main book home page*/
+.main-chapter-index {
+	margin: 30px auto;
+	padding: 20px;
+	border: 1px solid;
+	-webkit-box-shadow: 8px 8px 0 #4c4b4c;
+    box-shadow: 8px 8px 0 #4c4b4c;
+}
 
 /*nav links*/
 

@@ -4,25 +4,41 @@
  *
  * @package UnderStrap
  */
-
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
 
 //CHAPTER SPECIFIC 
 function chapter_summary(){
+	if(get_field('summary_title', 'option')){
+		$summary_title = get_field('summary_title', 'option');
+	} else {
+		$summary_title = 'Summary';
+	}
 	if( get_field('summary')){
 		$summary =  get_field('summary');
-		return "<div class='summary'><h2 id='summary-title'>Summary</h2>{$summary}</div>";
+		return "<div class='summary'><h2 id='summary-title'>{$summary_title}</h2>{$summary}</div>";
 	}
 }
 
 function chapter_provocation(){
+	if(get_field('provocation_title', 'option')){
+		$provoke_title = get_field('provocation_title', 'option');
+	} else {
+		$provoke_title = 'Provocations';
+	}
 	if( get_field('provocations')){
 		$provocations =  get_field('provocations');
-		return "<div class='provocations'><h2 id='provocation-title'>Provocations</h2>{$provocations}</div>";
+		return "<div class='provocations'><h2 id='provocation-title'>{$provoke_title}</h2>{$provocations}</div>";
 	}
 }
 
 function chapter_experts(){
 	$html = '';
+	if(get_field('people_title', 'option')){
+		$expert_title = get_field('people_title', 'option');
+	} else {
+		$expert_title = 'Experts';
+	}
 	if(get_field('experts')){
 		$experts = get_field('experts');
 		foreach ($experts as $key => $expert) {
@@ -31,7 +47,7 @@ function chapter_experts(){
 			$description = chapter_expert_description($expert);
 			$html .= "<div class='expert col-md-6'>{$name}{$description}</div>";
 		}
-		return "<div class='row expert-row'><div class='col-md-12'><h2 id='experts'>Experts</h2></div>{$html}</div>";
+		return "<div class='row expert-row'><div class='col-md-12'><h2 id='experts'>{$expert_title}</h2></div>{$html}</div>";
 	}
 }
 
@@ -99,11 +115,46 @@ function expert_rename ($post_id){
 add_action( 'save_post', 'expert_rename' );
 
 
+//FRONT END FORM RELATIONSHIP BUILDER
 
+function book_acf_form_submission_additions($post_id){
+	$new_post_id = $post_id;
+	$chapter_id = get_the_id();
+	if(get_post_type($new_post_id) === 'resource'){
+		if(get_field('resources', $chapter_id)){
+			$resources = get_field('resources', $chapter_id);
+		} else {
+			$resources = array();
+		}
+		array_push($resources, $new_post_id);
+		update_field('resources', $resources, $chapter_id);
+	}
+	if(get_post_type($new_post_id) === 'expert'){
+		if(get_field('experts', $chapter_id)){
+			$experts = get_field('experts', $chapter_id);
+		} else {
+			$experts = array();
+		}
+		array_push($experts, $new_post_id);
+		update_field('experts', $experts, $chapter_id);
+	}
+	
+}
 
+add_action('acf/save_post', 'book_acf_form_submission_additions', 20, 1912);
 
-// Exit if accessed directly.
-defined( 'ABSPATH' ) || exit;
+//OPTIONS PAGE
+if( function_exists('acf_add_options_page') ) {
+	
+	acf_add_options_page(array(
+		'page_title' 	=> 'Book Settings',
+		'menu_title'	=> 'Book Settings',
+		'menu_slug' 	=> 'book-settings',
+		'capability'	=> 'edit_posts',
+		'redirect'		=> false
+	));
+}
+
 
 	//save acf json
 		add_filter('acf/settings/save_json', 'dlinq_book_json_save_point');
