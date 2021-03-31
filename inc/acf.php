@@ -32,20 +32,36 @@ function chapter_provocation(){
 	}
 }
 
-function chapter_experts(){
-	$html = '';
+function book_get_human_name(){
 	if(get_field('people_title', 'option')){
 		$expert_title = get_field('people_title', 'option');
 	} else {
 		$expert_title = 'Experts';
 	}
+	return $expert_title;
+}
+
+function book_get_resource_name(){
+	if(get_field('resources_title', 'option')){
+		$resource_title = get_field('resources_title', 'option');
+	} else {
+		$resource_title = 'Resources';
+	}
+	return $resource_title;
+}
+
+function chapter_experts(){
+	$html = '';
+	$expert_title = book_get_human_name();
 	if(get_field('experts')){
 		$experts = get_field('experts');
 		foreach ($experts as $key => $expert) {
-			# code...
+			if(get_post_status($expert) === 'publish'){
+				# code...
 			$name = chapter_expert_name($expert);
 			$description = chapter_expert_description($expert);
 			$html .= "<div class='expert col-md-6'>{$name}{$description}</div>";
+			}
 		}
 		return "<div class='row expert-row'><div class='col-md-12'><h2 id='experts'>{$expert_title}</h2></div>{$html}</div>";
 	}
@@ -79,26 +95,29 @@ function chapter_expert_description($id){
 
 function chapter_resources(){
 	$html = '';
+	$resource_title = book_get_resource_name();
 	if(get_field('resources')){
 		$resources = get_field('resources');
 		foreach ($resources as $key => $resource) {
 			# code...
-			$name = get_the_title($resource);
-			$link = get_field('link', $resource);
-			$title = "<a href='{$link}'><h3>{$name}</h3></a>";
-			$description = '<div class="resource-description">' . get_field('description', $resource) . '</div>';
-			$html .= "<div class='resource col-md-6'>{$title}{$description}</div>";
+			if(get_post_status($resource) === 'publish'){
+				$name = get_the_title($resource);
+				$link = get_field('link', $resource);
+				$title = "<a href='{$link}'><h3>{$name}</h3></a>";
+				$description = '<div class="resource-description">' . get_field('description', $resource) . '</div>';
+				$html .= "<div class='resource col-md-6'>{$title}{$description}</div>";
+			}
 		}
-		return "<div class='row resource-row'><div class='col-md-12'><h2 id='resources'>Resources</h2></div>{$html}</div>";
+		return "<div class='row resource-row'><div class='col-md-12'><h2 id='resources'>{$resource_title}</h2></div>{$html}</div>";
 	}
 }
 
 //EXPERT SPECIFIC 
 //set the expert title to reflect first and last name fields
-function expert_rename ($post_id){
+function expert_rename($post_id){
   $type = get_post_type($post_id);
-  $last = get_field('last_name');
-  $first = get_field('first_name');
+  $last = get_field('last_name', $post_id);
+  $first = get_field('first_name', $post_id);
 
   if ($type === 'expert'){
     remove_action( 'save_post', 'expert_rename' );
@@ -109,10 +128,59 @@ function expert_rename ($post_id){
     );
 
   // Update the post into the database
-    wp_update_post( $my_post );
+    wp_update_post($my_post);
   }
 }
 add_action( 'save_post', 'expert_rename' );
+
+//FRONT END FORMS 
+function book_get_front_form_status(){
+	$status = get_field('live_content', 'option');
+	return $status;
+}
+
+
+function resource_form_creation(){
+	$name = book_get_resource_name();
+	$status = book_get_front_form_status();
+	$args = array(
+		'id' => 'new-resource',
+	        'post_id'       => 'new_post',
+	        'post_title'   => true,
+	        'new_post'      => array(
+	            'post_type'     => 'resource',
+	        ),
+	        'submit_value'  => 'Create new ' . $name,
+	);
+	if($status === 'live'){
+		$args['new_post']['post_status'] = 'publish';
+	} else {
+		$args['new_post']['post_status'] = 'draft';
+	}
+
+	return acf_form($args);
+			   
+}
+
+function person_form_creation(){
+	$name = book_get_human_name();
+	$status = book_get_front_form_status();
+	$args = array(
+		'id' => 'new-expert',
+        'post_id'       => 'new_post',
+        'new_post'      => array(
+            'post_type'     => 'expert',
+        ),
+        'submit_value'  => 'Create new ' . $name,
+    );
+		   
+	if($status === 'live'){
+		$args['new_post']['post_status'] = 'publish';
+	} else {
+		$args['new_post']['post_status'] = 'draft';
+	}
+	return acf_form($args);	   
+}
 
 
 //FRONT END FORM RELATIONSHIP BUILDER
@@ -136,6 +204,7 @@ function book_acf_form_submission_additions($post_id){
 			$experts = array();
 		}
 		array_push($experts, $new_post_id);
+		expert_rename($new_post_id);//force rename
 		update_field('experts', $experts, $chapter_id);
 	}
 	

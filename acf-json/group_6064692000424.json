@@ -3,6 +3,54 @@
     "title": "Book Settings",
     "fields": [
         {
+            "key": "field_60649bd58fc22",
+            "label": "Logged In?",
+            "name": "logged_in",
+            "type": "radio",
+            "instructions": "You can allow the submission of front-end content without being logged in. It defaults to require a login.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "closed": "Require Login",
+                "open": "Anyone can create content"
+            },
+            "allow_null": 0,
+            "other_choice": 0,
+            "default_value": "",
+            "layout": "vertical",
+            "return_format": "value",
+            "save_other_choice": 0
+        },
+        {
+            "key": "field_60649c45e1328",
+            "label": "Live content?",
+            "name": "live_content",
+            "type": "radio",
+            "instructions": "Content submitted via front-end forms can go to published or go to draft. It defaults to published.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "live": "Content goes live on submission",
+                "draft": "Requires editor or higher to publish"
+            },
+            "allow_null": 0,
+            "other_choice": 0,
+            "default_value": "",
+            "layout": "vertical",
+            "return_format": "value",
+            "save_other_choice": 0
+        },
+        {
             "key": "field_60646a11aa1a3",
             "label": "Summary Title",
             "name": "summary_title",
@@ -96,5 +144,5 @@
     "hide_on_screen": "",
     "active": true,
     "description": "",
-    "modified": 1617193604
+    "modified": 1617206496
 }

@@ -35,37 +35,12 @@ defined( 'ABSPATH' ) || exit;
 		<?php the_content(); ?>
 		<div class="row content-creation">
 			<div class="col-md-6">
-				<h2>Add Resource</h2>
-				<?php 
-				//RESOURCE FORM
-				acf_form(array(
-					'id' => 'new-resource',
-			        'post_id'       => 'new_post',
-			        'post_title'   => true,
-			        'new_post'      => array(
-			            'post_type'     => 'resource',
-			            'post_status'   => 'publish'
-			        ),
-			        'submit_value'  => 'Create new resource'
-			    ));
-			   
-			    ?>
+				<h2>Add <?php echo book_get_resource_name();?></h2>
+				<?php resource_form_creation();?>
 			</div>
 			<div class="col-md-6">
-				<h2>Add Expert</h2>
-				<?php 
-				//RESOURCE FORM
-				acf_form(array(
-					'id' => 'new-expert',
-			        'post_id'       => 'new_post',
-			        'new_post'      => array(
-			            'post_type'     => 'expert',
-			            'post_status'   => 'publish'
-			        ),
-			        'submit_value'  => 'Create new expert'
-			    ));
-			   
-			    ?>
+				<h2>Add <?php echo book_get_human_name();?></h2>
+				<?php person_form_creation();?>
 			</div>
 		</div>
 
