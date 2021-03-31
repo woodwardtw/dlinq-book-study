@@ -161,9 +161,7 @@ function resource_form_creation(){
 	} else {
 		$args['new_post']['post_status'] = 'draft';
 	}
-
 	return acf_form($args);
-			   
 }
 
 function person_form_creation(){
@@ -185,6 +183,20 @@ function person_form_creation(){
 	}
 	return acf_form($args);	   
 }
+
+
+//filter the interior labels to reflect the site settings
+function experts_acf_prepare_field( $field ) {
+    $field['label'] = get_field('people_title', 'options');
+    return $field;
+}
+add_filter('acf/prepare_field/name=experts', 'experts_acf_prepare_field');
+
+function resources_acf_prepare_field( $field ) {
+    $field['label'] = get_field('resources_title', 'options');
+    return $field;
+}
+add_filter('acf/prepare_field/name=resources', 'resources_acf_prepare_field');
 
 
 //FRONT END FORM RELATIONSHIP BUILDER

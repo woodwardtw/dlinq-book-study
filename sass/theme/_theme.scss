@@ -121,6 +121,20 @@ h1,h2,h3,h4{
 	border-right: 1px solid;
 }
 
+.btn-accord {
+	border-radius: 0;
+	border: 1px solid;
+	margin-top: 15px;
+	transition: all .3s;
+
+}
+
+.btn-accord:hover{
+	background-color: $primary;
+	color: #fff;
+	border: 1px solid $primary;
+}
+
 /*comments*/
 
 ol.comment-list {

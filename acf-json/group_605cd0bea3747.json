@@ -58,8 +58,7 @@
             ],
             "taxonomy": "",
             "filters": [
-                "search",
-                "post_type"
+                "search"
             ],
             "elements": [
                 "featured_image"
@@ -86,8 +85,7 @@
             ],
             "taxonomy": "",
             "filters": [
-                "search",
-                "post_type"
+                "search"
             ],
             "elements": [
                 "featured_image"
@@ -126,5 +124,5 @@
     ],
     "active": true,
     "description": "",
-    "modified": 1617123630
+    "modified": 1617217187
 }
