@@ -139,6 +139,10 @@ function book_get_front_form_status(){
 	return $status;
 }
 
+function book_get_login_status(){
+	$status = get_field('logged_in', 'option');
+	return $status;
+}
 
 function resource_form_creation(){
 	$name = book_get_resource_name();
