@@ -135,6 +135,26 @@ h1,h2,h3,h4{
 	border: 1px solid $primary;
 }
 
+#add-resource, #add-person {
+	margin: 0 auto;
+}
+
+.acf-button {
+	border-radius: 0;
+	background-color: $primary;
+	color: #fff;
+	display: block;
+	margin: 20px auto;
+	border: none;
+	padding: 5px 15px;
+	transition: .3s all;
+}
+
+.acf-button:hover {
+	background-color: $light-gray;
+	color: $primary;
+}
+
 /*comments*/
 
 ol.comment-list {
