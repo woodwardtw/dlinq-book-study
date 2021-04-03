@@ -43,6 +43,7 @@ defined( 'ABSPATH' ) || exit;
 				 </button>
 
 				  <div id="add-resource" class="collapse " aria-labelledby="resource-button" data-parent="#addition-forms">
+					<!--Form and login check-->
 					<?php 
 						$logged = book_get_login_status();
 						if($logged === 'open'){
@@ -56,6 +57,7 @@ defined( 'ABSPATH' ) || exit;
 				</div>
 
 				<div id="add-person" class="collapse " aria-labelledby="people-button" data-parent="#addition-forms">
+					<!--Form and login check-->
 					<?php 
 						$logged = book_get_login_status();
 						if($logged === 'open'){
