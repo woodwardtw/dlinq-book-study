@@ -124,9 +124,14 @@ h1,h2,h3,h4{
 .btn-accord {
 	border-radius: 0;
 	border: 1px solid;
-	margin-top: 15px;
+	margin-top: 0px;
 	transition: all .3s;
+}
 
+.btn-accord[aria-expanded="true"]{
+	background-color: $primary;
+	color: #fff;
+	border: 1px solid $primary;
 }
 
 .btn-accord:hover{
@@ -153,6 +158,10 @@ h1,h2,h3,h4{
 .acf-button:hover {
 	background-color: $light-gray;
 	color: $primary;
+}
+
+.post-navigation {
+	margin-top: 50px;
 }
 
 /*comments*/
