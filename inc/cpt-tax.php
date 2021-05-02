@@ -349,4 +349,3 @@ function create_chapter_themes()
     'show_in_nav_menus' => true,    
   ));
 }
-
